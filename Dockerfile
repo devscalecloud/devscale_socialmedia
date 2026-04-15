@@ -9,4 +9,13 @@ COPY . .
 
 RUN go build -o devscale-socialmedia .
 
-# Incomplete dockerfile
+RUN addgroup -S app && adduser -S app -G app
+
+ENV PORT=8080
+
+EXPOSE 8080
+
+USER app
+
+CMD ["./devscale-socialmedia"]
+
