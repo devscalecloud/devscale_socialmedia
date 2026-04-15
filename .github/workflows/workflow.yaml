@@ -6,52 +6,49 @@ on:
       - blaze-feature
 
 jobs:
-  setup_the_build_environment:
+  setup_build_upload:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+      - name: Checkout / Clone Repository
+        uses: actions/checkout@v7
 
       - name: Setup Go
         uses: actions/setup-go@v6
         with:
           go-version: '1.25'
 
-  build_the_application:
-    runs-on: ubuntu-latest
-    needs: setup_the_build_environment
-
-    steps:
       - name: Build Application
         run: go build -o devscale-socialmedia .
 
-  upload_build_artifact:
-    runs-on: ubuntu-latest
-    needs: build_the_application
-
-    steps:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v7
         with:
           name: devscale-socialmedia
           path: devscale-socialmedia
 
-  download_build_artifact:
-    runs-on: ubuntu-latest
-    needs: upload_build_artifact
+  download_and_verify_artifact:
+      runs-on: ubuntu-latest
+      needs: setup_build_upload
 
-    steps:
-      - name: Download Build Artifact
-        uses: actions/download-artifact@v7
-        with:
-          name: devscale-socialmedia
-          path: . 
+      steps:
+        - name: Download Build Artifact
+          uses: actions/download-artifact@v7
+          with:
+            name: devscale-socialmedia
+            path: .
 
-  confirm_downloaded_artifiact:
-    runs-on: ubuntu-latest
-    needs: download_build_artifact
-    steps:
-
-      - name: List Downloaded Files
-        run: ls -l devscale-socialmedia
+        - name: Verify Downloaded Artifact
+          run: ls -l devscale-socialmedia
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
