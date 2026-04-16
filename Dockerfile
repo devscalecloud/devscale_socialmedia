@@ -9,4 +9,6 @@ COPY . .
 
 RUN go build -o devscale-socialmedia .
 
-# Incomplete dockerfile
+EXPOSE 8085
+
+CMD ["./devscale-socialmedia"]
