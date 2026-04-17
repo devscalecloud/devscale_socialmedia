@@ -15,6 +15,8 @@ FROM alpine:latest
 
 WORKDIR /devscale_socialmedia
 
+COPY --from=0 /app/socialmedia .
+
 COPY --from=0 /app/templates ./templates
 
 EXPOSE 8085
