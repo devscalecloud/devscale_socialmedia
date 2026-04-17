@@ -1,4 +1,4 @@
-name: Simple Go CI
+name: Building Go CI/CD pipeline
 
 on: push
 
