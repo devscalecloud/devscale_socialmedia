@@ -1,31 +1,26 @@
-name: Go CI/CD Pipeline
+name: Simple Go CI
 
-on:
-  push:
-    branches: ["kazeem"]
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup Go
         uses: actions/setup-go@v5
-        with:
-          go-version: "1.22"
 
-      - name: Verify Go installation
-        run: go version
-
-      - name: Build application
-        run: go build -o app-binary
+      - name: Build app
+        run: go build -o app
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: go-binary
-          path: app-binary
+          name: my-app
+          path: app
 
   download:
     needs: build
@@ -35,4 +30,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: go-binary
+          name: my-app
+
+      - name: Check file
+        run: ls -l app
