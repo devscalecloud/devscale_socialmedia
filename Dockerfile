@@ -7,6 +7,18 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o devscale-socialmedia .
+RUN go build -o socialmedia .
 
-# Incomplete dockerfile
+RUN addgroup -S socialmedia && adduser -S socialmedia -G socialmedia
+
+FROM alpine:latest
+
+WORKDIR /devscale_socialmedia
+
+COPY --from=0 /app/socialmedia .
+
+COPY --from=0 /app/templates ./templates
+
+EXPOSE 8085
+
+CMD ["./socialmedia"]
