@@ -7,6 +7,9 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o devscale-socialmedia .
+RUN go build -o app .
 
-# Incomplete dockerfile
+EXPOSE 8085
+
+# DevScale assignment fix
+CMD ["./app"]
